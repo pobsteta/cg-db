@@ -2,7 +2,7 @@
 #
 # This image includes the following tools
 # - PostgreSQL 9.6
-# - Postgis 2.3
+# - Postgis 2.4
 # - SIME 2.8
 #
 # Version 1.0
@@ -30,8 +30,7 @@ RUN set -x \
 	&& gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
 	&& rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
 	&& chmod +x /usr/local/bin/gosu \
-	&& gosu nobody true \
-	&& apt-get purge -y --auto-remove ca-certificates
+	&& gosu nobody true
 
 # On met la locale à "fr_FR.UTF-8" pour que Postgres soit en français par défaut
 RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
@@ -40,7 +39,7 @@ ENV LANG fr_FR.utf8
 
 # Les versions de PostgreSQL/Postgis à installer
 ENV PG_MAJOR 9.6
-ENV POSTGIS_MAJOR 2.3
+ENV POSTGIS_MAJOR 2.4
 
 # on ajoute le dépôt Postgres
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8
